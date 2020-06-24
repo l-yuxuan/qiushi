@@ -13,7 +13,8 @@ export default {
 </script>
 
 <style>
-@import url("./common/animate.css");
-@import "./common/animate.css"
+	@import url("common/icon.css");
+	@import url("./common/animate.css");
+	@import "./common/animate.css"
 
 </style>

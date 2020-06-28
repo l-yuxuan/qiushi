@@ -15,6 +15,7 @@ export default {
 <style>
 	@import url("common/icon.css");
 	@import url("./common/animate.css");
-	@import "./common/animate.css"
+	@import "./common/animate.css";
+	@import url("./common/uni.css");
 
 </style>

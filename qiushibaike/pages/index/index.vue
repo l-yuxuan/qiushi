@@ -1,159 +1,356 @@
 <template>
 	<view>
-		<!-- 首页的文章开始 -->
-		<view class="index-list">
-			<view class="index-list1">
-				<view>
-					<image src="../../static/userpic/4.jpg" mode="widthFix" lazy-load></image>
-					昵称
-				</view>
-				<view>
-					<view class="iconfont icon-zengjia"></view>关注
-				</view>
+		<!-- tab导航开始 -->
+			<view class="uni-tab-bar">
+				<scroll-view scroll-x class="uni-swiper-tab">
+					<block v-for="(item,index) in tabBars" :key="item.id">
+						<view class="swiper-tab-list" :class="{'active':tabIndex==index}"
+							@tap="tabtap(index)">
+							{{item.name}}
+							<view class="swiper-tab-line"></view>
+						</view>
+					</block>
+				</scroll-view>
 			</view>
-			<view class="index-list2">我是标题</view>
-			<view class="index-list3">
-				<image src="../../static/datapic/1.jpg" mode="widthFix"></image>
+			<view class="uni-tab-bar" >
+				<swiper class="swiper-box" 
+				:style="{height:swiperheight+'px'}"
+				:current="tabIndex"
+				@change="tabIndexchange">
+					<swiper-item v-for="(items,index) in newslist" :key="index"> 
+						<scroll-view scroll-y="true" class="list">
+							<block v-for="(item,index1) in items.list" :key="index1">
+								<index-list :item="item" :index="index1"></index-list>
+							</block>
+						</scroll-view>
+					</swiper-item>
+				</swiper>
 			</view>
-			<view class="index-list4">
-				<view>
-					<view><view class="iconfont icon-icon_xiaolian-mian"></view>10</view>
-					<view><view class="iconfont icon-kulian"></view>10</view>
-				</view>
-				<view>
-					<view><view class="iconfont icon-pinglun1"></view>10</view>
-					<view><view class="iconfont icon-zhuanfa"></view>10</view>
-				</view>
-			</view>
-		</view>
-		<view class="index-list">
-			<view class="index-list1">
-				<view>
-					<image src="../../static/userpic/4.jpg" mode="widthFix" lazy-load></image>
-					昵称
-				</view>
-				<view>
-					<view class="iconfont icon-zengjia"></view>关注
-				</view>
-			</view>
-			<view class="index-list2">我是标题</view>
-			<view class="index-list3">
-				<!-- 图片 -->
-				<image src="../../static/datapic/1.jpg" mode="widthFix"></image>
-				<!-- 视频 -->
-				<view class="iconfont icon-bofang index-list-play"></view>
-				<view class="index-list-playinfo">
-						20w次播放 2：47
-				</view>
-			</view>
-			<view class="index-list4">
-				<view>
-					<view><view class="iconfont icon-icon_xiaolian-mian"></view>10</view>
-					<view><view class="iconfont icon-kulian"></view>10</view>
-				</view>
-				<view>
-					<view><view class="iconfont icon-pinglun1"></view>10</view>
-					<view><view class="iconfont icon-zhuanfa"></view>10</view>
-				</view>
-			</view>
-		</view>
-		<!-- 首页的文章结束 -->
-		
 	</view>
 </template>
 
 <script>
+	import indexList from "../../components/index/index-list.vue";
 	export default {
+		components:{
+			indexList
+		},
 		data() {
 			return {
+				swiperheight:0,
+				tabIndex:3,
+				tabBars:[
+					{name:"关注",id:"guanzhu"},
+					{name:"推荐",id:"tuijian"},
+					{name:"体育",id:"tiyu"},
+					{name:"热点",id:"redian"},
+					{name:"财经",id:"caijing"},
+					{name:"娱乐",id:"yule"},
+					{name:"高笑",id:"gaoxiao"},
+				],
+				newslist:[
+					{
+						list:[
+							{
+								userpic:'../../static/userpic/4.jpg',
+								username:'阮姐姐',
+								isguanzhu:true,
+								title:'阮姐姐生活照',
+								type:'img',//video:视频
+								playnum:'',
+								long:'',
+								titlepic:'../../static/datapic/1.jpg',
+								infonum:{//顶和踩
+									index:2,//0没有操作，1：顶     2：踩
+									ding_num:1100,
+									cai_num:1,
+								},
+								commentnum:"100w", //评论数
+								sharenum:100,//分享数
+								
+							},
+							{
+								userpic:'../../static/userpic/4.jpg',
+								username:'阮姐姐',
+								isguanzhu:false,
+								title:'阮姐姐在线打豆豆',
+								type:'video',//video:视频，
+								playnum:'20w',
+								long:'2:47',
+								titlepic:'../../static/datapic/10.jpg',
+								infonum:{//顶和踩
+									index:1,//0没有操作，1：顶     2：踩
+									ding_num:1100,
+									cai_num:0,
+								},
+								commentnum:"100w", //评论数
+								sharenum:10,//分享数
+								
+							}
+						]
+					},{
+						list:[
+							{
+								userpic:'../../static/userpic/4.jpg',
+								username:'阮姐姐',
+								isguanzhu:true,
+								title:'阮姐姐生活照',
+								type:'img',//video:视频
+								playnum:'',
+								long:'',
+								titlepic:'../../static/datapic/1.jpg',
+								infonum:{//顶和踩
+									index:2,//0没有操作，1：顶     2：踩
+									ding_num:1100,
+									cai_num:1,
+								},
+								commentnum:"100w", //评论数
+								sharenum:100,//分享数
+								
+							},
+							{
+								userpic:'../../static/userpic/4.jpg',
+								username:'阮姐姐',
+								isguanzhu:false,
+								title:'阮姐姐在线打豆豆',
+								type:'video',//video:视频，
+								playnum:'20w',
+								long:'2:47',
+								titlepic:'../../static/datapic/10.jpg',
+								infonum:{//顶和踩
+									index:1,//0没有操作，1：顶     2：踩
+									ding_num:1100,
+									cai_num:0,
+								},
+								commentnum:"100w", //评论数
+								sharenum:10,//分享数
+								
+							}
+						]
+					},{
+						list:[
+							{
+								userpic:'../../static/userpic/4.jpg',
+								username:'阮姐姐',
+								isguanzhu:true,
+								title:'阮姐姐生活照',
+								type:'img',//video:视频
+								playnum:'',
+								long:'',
+								titlepic:'../../static/datapic/1.jpg',
+								infonum:{//顶和踩
+									index:2,//0没有操作，1：顶     2：踩
+									ding_num:1100,
+									cai_num:1,
+								},
+								commentnum:"100w", //评论数
+								sharenum:100,//分享数
+								
+							},
+							{
+								userpic:'../../static/userpic/4.jpg',
+								username:'阮姐姐',
+								isguanzhu:false,
+								title:'阮姐姐在线打豆豆',
+								type:'video',//video:视频，
+								playnum:'20w',
+								long:'2:47',
+								titlepic:'../../static/datapic/10.jpg',
+								infonum:{//顶和踩
+									index:1,//0没有操作，1：顶     2：踩
+									ding_num:1100,
+									cai_num:0,
+								},
+								commentnum:"100w", //评论数
+								sharenum:10,//分享数
+								
+							}
+						]
+					},{
+						list:[
+							{
+								userpic:'../../static/userpic/4.jpg',
+								username:'阮姐姐',
+								isguanzhu:true,
+								title:'阮姐姐生活照',
+								type:'img',//video:视频
+								playnum:'',
+								long:'',
+								titlepic:'../../static/datapic/1.jpg',
+								infonum:{//顶和踩
+									index:2,//0没有操作，1：顶     2：踩
+									ding_num:1100,
+									cai_num:1,
+								},
+								commentnum:"100w", //评论数
+								sharenum:100,//分享数
+								
+							},
+							{
+								userpic:'../../static/userpic/4.jpg',
+								username:'阮姐姐',
+								isguanzhu:false,
+								title:'阮姐姐在线打豆豆',
+								type:'video',//video:视频，
+								playnum:'20w',
+								long:'2:47',
+								titlepic:'../../static/datapic/10.jpg',
+								infonum:{//顶和踩
+									index:1,//0没有操作，1：顶     2：踩
+									ding_num:1100,
+									cai_num:0,
+								},
+								commentnum:"100w", //评论数
+								sharenum:10,//分享数
+								
+							}
+						]
+					},{
+						list:[
+							{
+								userpic:'../../static/userpic/4.jpg',
+								username:'阮姐姐',
+								isguanzhu:true,
+								title:'阮姐姐生活照',
+								type:'img',//video:视频
+								playnum:'',
+								long:'',
+								titlepic:'../../static/datapic/1.jpg',
+								infonum:{//顶和踩
+									index:2,//0没有操作，1：顶     2：踩
+									ding_num:1100,
+									cai_num:1,
+								},
+								commentnum:"100w", //评论数
+								sharenum:100,//分享数
+								
+							},
+							{
+								userpic:'../../static/userpic/4.jpg',
+								username:'阮姐姐',
+								isguanzhu:false,
+								title:'阮姐姐在线打豆豆',
+								type:'video',//video:视频，
+								playnum:'20w',
+								long:'2:47',
+								titlepic:'../../static/datapic/10.jpg',
+								infonum:{//顶和踩
+									index:1,//0没有操作，1：顶     2：踩
+									ding_num:1100,
+									cai_num:0,
+								},
+								commentnum:"100w", //评论数
+								sharenum:10,//分享数
+								
+							}
+						]
+					},{
+						list:[
+							{
+								userpic:'../../static/userpic/4.jpg',
+								username:'阮姐姐',
+								isguanzhu:true,
+								title:'阮姐姐生活照',
+								type:'img',//video:视频
+								playnum:'',
+								long:'',
+								titlepic:'../../static/datapic/1.jpg',
+								infonum:{//顶和踩
+									index:2,//0没有操作，1：顶     2：踩
+									ding_num:1100,
+									cai_num:1,
+								},
+								commentnum:"100w", //评论数
+								sharenum:100,//分享数
+								
+							},
+							{
+								userpic:'../../static/userpic/4.jpg',
+								username:'阮姐姐',
+								isguanzhu:false,
+								title:'阮姐姐在线打豆豆',
+								type:'video',//video:视频，
+								playnum:'20w',
+								long:'2:47',
+								titlepic:'../../static/datapic/10.jpg',
+								infonum:{//顶和踩
+									index:1,//0没有操作，1：顶     2：踩
+									ding_num:1100,
+									cai_num:0,
+								},
+								commentnum:"100w", //评论数
+								sharenum:10,//分享数
+								
+							}
+						]
+					}
+				],
 				
 			}
 		},
 		methods: {
-
+			tabtap(index){
+				console.log(index)
+				this.tabIndex = index
+			},tabIndexchange(e){
+				console.log(JSON.stringify(e.detail.current))  //JSON对象转成字符串,获取滑动时的index
+				this.tabIndex = e.detail.current;
+				}
+		},
+		onLoad() {
+			uni.getSystemInfo({
+				success: (res) => {
+					let height = res.windowHeight - uni.upx2px(80)
+					console.log(height)
+					this.swiperheight = height;
+				}
+			})
 		}
 	}
 </script>
 <style lang="scss">	
-	.index-list{
-		padding: 20px;
-		border-bottom: 1px solid #CCCCCC;
-		font-size: 14px;
+	
+	
+	.scroll-h {
+	    width: 750rpx;
+	    height: 80rpx;
+	    flex-direction: row;
+	    /* #ifndef APP-PLUS */
+	    white-space: nowrap;
+	    /* #endif */
+		white-space: nowrap;
+	    /* flex-wrap: nowrap; */
+	    border-color: #cccccc;
+		white-space: nowrap;
+		border-bottom-style: solid;
+		border-bottom-width: 1px;
 	}
-	.index-list1{
-		@include flexs();
+	
+	
+	.uni-tab-item {
+	    /* #ifndef APP-PLUS */
+	    display: inline-block;
+	    /* #endif */
+		display: inline-block;
+	    flex-wrap: nowrap;
+	    padding-left: 34rpx;
+	    padding-right: 34rpx;
+		font-size: 30rpx;
 	}
-	.index-list1>view:first-child{
-		display: flex;
-		align-items: center;
-		color: #999999;
-		
+	.active {
+	    color: #000;
+		font-weight: bold;
 	}
-	.index-list1>view:first-child image{
-		width: 90upx;
-		height: 90upx;
-		border-radius: 50%;
-		margin-right: 15upx;
+	.active .swiper-tab-line{
+		border-bottom: 4upx solid #FEDE33;
+		width: 60upx;
+		margin: auto;
+		border-top:4upx solid #FFE933;
+		border-radius:20upx ;
 	}
-	.index-list1>view:last-child{
-		@include flexs();
-	}
-	.index-list1>view:last-child{
-		background-color: #F4F4F4;
-		border-radius: 5upx;
-		padding:5upx 10upx;
-	}
-	.index-list2{
-		// color: ;
-		padding: 25upx 0;
-		font-size: 32upx;
-	}
-	.index-list3{
-		position: relative;
-		padding-top: 15upx;
-align-items: center;
+	.swiper-box {
+	    flex: 1;
 	
 	}
-	.index-list3>image{
-		width: 100%;
-		border-radius: 20upx;
-		
-	}
-	.index-list4{
-		padding-top:25upx ;
-		@include flexs();
-	}
-	.index-list4 view{
-		color: #999999;
-	}
-	.index-list4>view:first-child{
-		@include flexs();
-	}
-	.index-list4>view:first-child view{
-		@include flexs();
-	}
-	.index-list4>view:last-child{
-		@include flexs();
-	}
-	.index-list4>view:last-child view{
-		@include flexs();
-	}
-	.index-list4>view>view>view{
-		margin-right: 5;
-	}
 
-	.index-list4>view:first-child>view{
-		margin-right: 10upx;
-	}
-	.index-list4>view:last-child>view{
-		margin-left: 10upx;
-	}
-	// 视频样式开始
-	.index-list-play{
-		position: absolute;
-	}
-	.index-list-playinfo{
-		position: absolute;
-	}
-	// 视频样式结束
 </style>

@@ -45,7 +45,9 @@
 		}   
 		,{
 			"path" : "pages/news/news",
-			"style" : {}
+			"style" : {
+				
+			}
 		}
 		,{
 			"path" : "pages/papper/papper",

@@ -10,7 +10,7 @@
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "仿糗事百科",
     "navigationBarBackgroundColor": "#FFFFFF",
-    "backgroundColor": "#FFFFFF"
+    "backgroundColor": "#FFF000"
   },
   "tabBar": {
     "color": "#B5B5B5",
